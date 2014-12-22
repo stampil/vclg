@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.eckume.vclg" version="1.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>VcLG</name>
+    <description>
+        jeu de conquête de territoire réel grace à la géolocalisation sur le theme des vampires et des loups garous.
+        Scanner les secteurs sur une googlemap, rechercher des objets, et capturer les zones pret de chez vous !
+    </description>
+    <author email="developpeurntic@gmail.com" href="http://vps36292.ovh.net/mordu/">
+        Detrios
+    </author>
+    <feature name="http://api.phonegap.com/1.0/device" />
+	<feature name="http://api.phonegap.com/1.0/file" />
+	<feature name="http://api.phonegap.com/1.0/geolocation"/>
+	<feature name="http://api.phonegap.com/1.0/network"/>
+	<feature name="http://api.phonegap.com/1.0/storage"/>
+	<feature name="http://api.phonegap.com/1.0/connection"/>
+	<feature name="NetworkStatus">
+    <param name="android-package" value="org.apache.cordova.NetworkManager" />
+	</feature>
+    <preference name="permissions" value="none" />
+    <preference name="orientation" value="default" />
+    <preference name="target-device" value="universal" />
+    <preference name="fullscreen" value="true" />
+    <preference name="webviewbounce" value="true" />
+    <preference name="prerendered-icon" value="true" />
+    <preference name="stay-in-webview" value="false" />
+    <preference name="ios-statusbarstyle" value="black-opaque" />
+    <preference name="detect-data-types" value="true" />
+    <preference name="exit-on-suspend" value="false" />
+    <preference name="show-splash-screen-spinner" value="true" />
+    <preference name="auto-hide-splash-screen" value="true" />
+	<preference name="splash-screen-duration" value="5000" />
+	<preference name="SplashScreenDelay" value="5000"/>
+    <preference name="disable-cursor" value="false" />
+    <preference name="android-minSdkVersion" value="7" />
+    <preference name="android-installLocation" value="auto" />
+	<plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
+	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
+	<gap:plugin name="com.phonegap.plugins.barcodescanner" version="1.1.0" />
+	<gap:plugin name="org.apache.cordova.splashscreen" />
+    <icon src="icon.png" />
+	<gap:splash rc="splash.png" />
+    <icon gap:density="ldpi" gap:platform="android" src="res/icon/android/icon-36-ldpi.png" />
+    <icon gap:density="mdpi" gap:platform="android" src="res/icon/android/icon-48-mdpi.png" />
+    <icon gap:density="hdpi" gap:platform="android" src="res/icon/android/icon-72-hdpi.png" />
+    <icon gap:density="xhdpi" gap:platform="android" src="res/icon/android/icon-96-xhdpi.png" />
+    <gap:splash gap:density="ldpi" gap:platform="android" src="res/screen/android/screen-ldpi-portrait.png" />
+    <gap:splash gap:density="mdpi" gap:platform="android" src="res/screen/android/screen-mdpi-portrait.png" />
+    <gap:splash gap:density="hdpi" gap:platform="android" src="res/screen/android/screen-hdpi-portrait.png" />
+    <gap:splash gap:density="xhdpi" gap:platform="android" src="res/screen/android/screen-xhdpi-portrait.png" />
+    <access origin="*" />
+</widget>

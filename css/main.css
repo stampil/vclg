@@ -1,0 +1,71 @@
+body{color:#AAA;}
+input{margin:15px;padding:5px;}
+input[type="button"]{cursor:pointer;}
+.chart{width:120px;height:120px;float:left;margin:5px 10px;}
+#loading_radar{position:absolute;z-index:21;opacity:0.7;left:-50px}
+.img_soldat_combat{position:relative;}
+.mes_disciples, .mes_secteurs{padding:20px 10px;border:1px solid gray;border-radius:5px;}
+.gradient{background:lightgray;}
+.combat{display:none;}
+.combat_end{height:45px;}
+#googleMapHeader{position:absolute;top:101px;left:40px;z-index:20;opacity:0.75;background:dimgrey;color:white;max-width:250px;height:67px;overflow:hidden;}
+#googleMap{width:320px;height:320px;background:#ddd;border:3px outset lightgray;margin-bottom:10px;}
+#popin,#bg_popin{cursor:pointer;}
+.menu{display:block;padding:10px;margin:2px;border:1px solid #CCC;border-radius:2px;background:#DDD;color:white;text-decoration:none;font-size:14pt;font-family:"Comic Sans MS", "Trebuchet MS", Times, "Times New Roman";cursor:pointer;}
+#content, .page, .inscription, .log, #capturable, #capture, #race_identique,
+#race_different, .btn_secteur, .need_jeton, .connect, .connect_mordeur,
+.aucun_secteur, #secteur_appartient_other, #secteur_appartient_user, #hybride_restriction, #explication_objet, #loading_radar_mess{display:none;}
+#loading, .accueil{display:block;}
+.logo{text-align:center;color:white;text-shadow:black 0px 0px 5px,black 1px 0px 5px,black 0px 1px 5px,black 1px 1px 5px;font-weight:bold;font-size:1.2em;}
+#bg_popin{position:absolute;top:0;left:0;overflow:hidden;z-index:9999;background:black;opacity:0.6;display:none;}
+#popin{position:absolute;top:0;left:0;padding:15px;border:1px solid black;border-radius:10px;z-index:10000;background:white;color:black;display:none}
+#nom_secteur_localise{font-style:italic;font-weight:bold;}
+#ma_race{font-weight:bold;}
+.nom_objet, .nom_disciple, .drop_objet, .ouvre_inventaire{font-weight:bold;text-decoration:underline;cursor:pointer;}
+.desc_objet{font-style:italic;}
+.qrcode_objet{border:2px outset darkgray;float:left;width:90px;height:90px;margin-right:5px;}
+.div_qrcode_objet{clear:both;min-height:94px;border:1px solid gray;border-radius:5px;padding:5px 10px 5px 3px;margin:5px;text-align:justify;}
+.regle{text-align:justify;}
+.tuto{text-decoration:underline;cursor:pointer;}
+#center_code{width:150px;height:150px;margin:auto;margin-top:50px;}
+#explication_objet{text-align:justify;}
+.img_oeil{float:right;margin-right:5px;cursor:pointer;}
+#progress_contenant{border:1px solid black;border-radius:5px;position:relative;cursor:help;width:300px;text-align:center;background:#DED;height:18px;}
+#progress_contenu{background-color:gray;border-radius:5px;width:0px;height:18px;}
+#barre_text{position:absolute;text-align:center;vertical-align:middle;width:300px;height:15px;z-index:100;font-size:0.8em;color:black;padding:1px;}
+#lvl_bar{float:left;margin-left:3px;}
+#lvl_bar_sup{float:right;margin-right:3px;}
+.regle h2{margin-top:20px;text-decoration: underline;}
+.de_1{width:32px;height:32px;background:url('../img/sprite.png') 44px -33px;display: inline-block;}
+.de_2{width:32px;height:32px;background:url('../img/sprite.png') -48px -106px;display: inline-block;}
+.de_3{width:32px;height:32px;background:url('../img/sprite.png') -48px -69px;display: inline-block;}
+.de_4{width:32px;height:32px;background:url('../img/sprite.png') -9px -118px;display: inline-block;}
+.de_5{width:32px;height:32px;background:url('../img/sprite.png') -9px -85px;display: inline-block;}
+.de_6{width:32px;height:32px;background:url('../img/sprite.png') -9px -51px;display: inline-block;}
+.oeil{width:24px;height:21px;background:url('../img/sprite.png') 117px -138px;display:inline-block;}
+.soldat_1{width:32px;height:32px;background:url('../img/sprite.png') 320px 37px;display:inline-block;}
+.soldat_2, .soldat_5, .soldat_7{width:32px;height:32px;background:url('../img/sprite.png') 289px 37px;display:inline-block;}
+.soldat_3, .soldat_4, .soldat_6{width:32px;height:32px;background:url('../img/sprite.png') 259px 37px;display:inline-block;}
+.mini_soldat_1{position:relative;top:2px;width:16px;height:16px;background:url('../img/sprite.png') 91px -139px;display:inline-block;}
+.mini_soldat_2, .mini_soldat_5, .mini_soldat_7{position:relative;top:2px;width:16px;height:16px;background:url('../img/sprite.png') 72px -139px;display:inline-block;}
+.mini_soldat_3, .mini_soldat_4, .mini_soldat_6{position:relative;top:2px;width:16px;height:16px;background:url('../img/sprite.png') 54px -139px;display:inline-block;}
+.attaque{width:32px;height:32px;background:url('../img/sprite.png') 275px -33px;display:inline-block;}
+.capturable{width:32px;height:32px;background:url('../img/sprite.png') 241px 0px;display:inline-block;}
+.renfort{width:32px;height:32px;background:url('../img/sprite.png') 207px 0px;display:inline-block;}
+.cherche{width:32px;height:32px;background:url('../img/sprite.png') 275px 0px;display:inline-block;}
+.rename{width:32px;height:32px;background:url('../img/sprite.png') 206px -67px;display:inline-block;}
+.info{width:32px;height:32px;background:url('../img/sprite.png') 79px -69px;display:inline-block;}
+.radar_off{width:32px;height:32px;background:url('../img/sprite.png') 79px -104px;display:inline-block;}
+.radar_on{width:32px;height:32px;background:url('../img/sprite.png') 43px -104px;display:inline-block;}
+.alert{width:32px;height:32px;background:url('../img/sprite.png') 79px -33px;display:inline-block;}
+.action{cursor:pointer;padding:2px 15px;border:1px solid gray;border-radius:15px;margin:2px;vertical-align:middle;}
+#jeton_action{position:relative;top:-4px;}
+#renommer_secteur{text-align:center;margin:0 !important;padding:0 !important;position:relative;top:-9px;}
+@media only screen and (max-device-width:2800px){body{background:#18142b;}
+.menu{background:#282a5a;}
+.logo{background:url('../img/logo.png') 0px -13px no-repeat #000000;padding:30px;}
+#progress_contenu{background-color:#a1fc2a;}
+input{background:black;color:white;}
+.gradient{clear:both;background:midnightblue url("gradient-bg.svg");background-image:-webkit-gradient(linear,left top, left bottom,from(#18142b),to(midnightblue));background-image:-webkit-linear-gradient(top,#18142b,midnightblue);background-image:-moz-linear-gradient(top,#18142b,midnightblue);background-image:-o-linear-gradient(top,#18142b,midnightblue);background-image:linear-gradient(top,#18142b,midnightblue);}
+}
+#check_connection{position:absolute;top:0px;left:0px;z-index:9000}

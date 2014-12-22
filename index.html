@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<title></title>
+
+<link rel="stylesheet" href="css/main.css">
+
+<!-- jQuery -->
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/Chart.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.10.4.custom.min.js"></script>
+
+<!-- APPLI ANDROID -->
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="barcodescanner.js"></script>
+<script type="text/javascript" src="childbrowser.js"></script>
+
+
+<script>
+document.write('<' + 'script src="http://maps.google.com/maps/api/js?sensor=true&_=' + Math.random() + '"' +
+	                 ' type="text/javascript"><' + '/script>');
+</script>
+<script src="js/v3_ll_grat.js"></script>
+</head>
+<body>
+<div id="check_connection"></div>
+	<div class="menu logo" show="accueil" title="VcLG">VcLG</div>
+
+	<div id="loading">Chargement...</div>
+	<div id="bg_popin"></div>
+	<div id="popin">CHARGEMENT</div>
+
+	<div id="content">
+
+		<div class="page accueil">
+			<div class="menu" show="regle" title="Règles du jeu">Règles du jeu</div>
+			<div class="menu" show="perso" title="Info perso">Connexion</div>
+			<div class="menu" show="radar" title="Afficher le secteur">Jouer</div>
+			<div class="menu connect_mordeur" show="qrcode" title="Générer QRcode de Morsure">Générer QRcode de Morsure</div>
+			<div class="menu connect_mordeur" show="disciples" title="Voir ses disciples">Voir ses disciples</div>
+			<div class="menu connect" show="secteurs" title="Voir ses secteurs">Voir ses secteurs</div>
+			<div class="menu connect" show="inventaire" title="Votre inventaire">Votre inventaire</div>
+			<div class="menu" show="stats" title="Statistiques">Statistiques</div>
+			<div class="menu" show="scanner" title="Lire QRcode">Lire QRcode</div>
+		</div>
+
+
+		<div class="page radar">
+			<img src="img/none.png" id="loading_radar" />
+			<div id="googleMapHeader"> &nbsp;Secteur <span class="nom_secteur">sans nom</span><br />
+			 &nbsp;<span id="pt_renfort">0</span>x<span class="mini_soldat_1" id="img_mini_soldat"></span> aux ordres de<br />
+			<span id="nom_proprio">inconnu</span> (<span id="race_proprio">ennemi</span>).
+			</div>
+			<div id="googleMap"></div>
+			<div id="loading_radar_mess">Précision du radar : <span class="precision"></span>, triangularisation en cours...</div>
+			<div id="actions gradient">
+			<div class="action gradient">
+				<span class="btn_secteur attaque" action="attaque"></span>
+				<span class="btn_secteur capturable" action="capture"></span>
+				<span class="btn_secteur renfort"  action="renfort"></span>
+				Envoyer <select name="jeton_action" id="jeton_action"></select>x<span class="mini_soldat_1 soldat_moi"></span>
+			</div>
+			<div class="action gradient cherche_objet">
+				<span id="cherche_objet" class="cherche"></span>  <span class="no_click">Fouiller le secteur</span>
+			</div>
+			<div class="action gradient renom_secteur">
+				<span id="btn_renommer_secteur" class="rename renom_secteur"></span> <input type="text" id="renommer_secteur" class="renom_secteur" />
+			</div>
+			<div class="action gradient affiche_precision">
+				<span class="radar_on" id="search_position"></span> <span class="no_click">Précision :</span> <span class="precision no_click"></span>
+			</div>
+			<div class="action gradient affiche_info">
+				<span class="info" id="info_secteur"></span> <span class="no_click">Activités</span>
+				<div id="affiche_info_secteur" class="no_click"></div>
+			</div>			
+			<div class="action gradient" id="hybride_restriction">
+				<span class="alert"></span>En tant qu’hybride, vous ne pouvez que capturer des secteurs neutres.
+			</div>
+			<div class="action gradient need_jeton">
+				<span class="alert"></span> Vous n’avez plus de soldat, aller sur d’autre secteur et tenter de trouver des recrues, ou attendez demain pour en recruter automatiquement.
+			</div>
+		</div>
+
+		</div>
+		
+		<div class="page precis gradient"><p>Vous avez une précision de <span class="precision"></span></p>
+		<p>Le radar n’est pas assez precis, activer votre GPS et le Wifi pour une meilleur triangularisation.<p>
+		<p>ou revenez au menu et retenter d’afficher le secteur.</p>
+		<p>Si l’affichage persiste sur un ancien secteur visité, un redemarrage du téléphone est necessaire.</p>
+		 </div>
+
+<div class="page scanner">
+	<div class="result_scanner gradient">Disponible uniquement sur l’appli android. Vous pouvez utiliser une appli tierce pour scanner un QRcode.</div>
+</div>
+		<div class="page wip">En construction</div>
+		
+		<div class="page qrcode">
+		Imprimer et afficher ce QRcode dans votre ville ou afficher cet image sur des forums.
+		Chaque nouvelle personne qui scannera ce QRcode sera mordu et deviendra votre disciple si il ne boit pas d'antidote à temps.
+		<div id="center_code"><img id="img_qrcode" src="" width="123" height="123" /></div>
+		
+		</div>
+		
+		<div class="page disciples">
+		Vous avez <span id="nb_disciple">0</span> disciple<span id="plur_disciple"></span>.
+		<div id="info_mes_disciples"></div>
+		</div>
+		
+		<div class="page info_eclaireur">
+		Votre eclaireur à trouver ce secteur :		
+		</div>
+
+		
+		<div class="page secteurs">
+			<p>Votre race possède <span id="nb_secteur_race">0</span> secteur<span id="plur_secteur_race"></span>.</p>
+			<p class="au_moins_un_secteur"><span class="qui_possede">Vous possedez</span> ces <span id="nb_secteur">0</span> secteur<span id="plur_secteur"></span> :</p>
+			<p class="aucun_secteur"><span class="qui_possede">Vous possedez</span> aucun secteur.</p>
+			<div id="info_mes_secteurs"></div>
+		</div>
+
+		<div class="page perso">
+			<p>Bonjour <span id="nom_perso">visiteur</span>.<p>
+			<p>Vous êtes un <span id="ma_race">Humain</span>
+			
+			<div id="progress_contenant">
+    			<div id="barre_text">
+	        		<div id=lvl_bar>0</div>
+	        		<span class="xp"></span>/<span class="xp_max_lvl"></span>  
+	     			<div id="lvl_bar_sup">1</div>
+				</div>
+				<div  id="progress_contenu">
+					&nbsp;
+				</div>
+			</div>
+			</p>
+			<div id="description"> Vous êtes un
+			humain, vous ne vous êtes pas encore fait mordre par un loup ou un
+			vampire... capturer et défendez vos secteurs contres ces
+			abominations. Pour recruter d’autres humains, donner simplement le
+			lien de ce site à vos amis.
+			</div>
+			<div id="description2">
+			</div>
+			<div>Vos soldats : <span id="jeton"></span>/<span id="jeton_max"></span><span class="soldat_1 soldat_moi"></span></div>
+						
+			
+			
+			<div class="need_jeton">Vous n’avez plus de soldat, attendez demain pour en recruter automatiquement.</div>
+			<div id="need_inscription">
+			
+			<hr class="inscription" />
+				<p class="inscription">
+					Nom du perso : <input type="text" name="nom" id="nom" value="" class="champ_formulaire" regexp="[a-zA-Z]{3,}" err="le nom doit avoir au moins 3 caracteres et n’être composé que de lettre" />
+				</p>
+				<p class="inscription log">
+					Votre email : <input type="email" name="email" id="email" value="" class="champ_formulaire" regexp="^[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*@[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*[\.]{1}[a-z]{2,6}$" err="l’email est invalide" />
+				</p>
+				<p class="inscription log">
+					Mdp : <input type="password" name="mdp" id="mdp" value="" class="champ_formulaire" regexp=".{6,}" err="le mot de passe doit contenir au moins 6 caracteres" />
+				</p>
+				<input class="inscription" type="button" id="submit_inscription" value="Inscription" />
+				<input class="log" type="button" id="submit_log" value="se logguer" />
+				<hr class="inscription" />
+				
+				<p>Pour acquerir vos soldats et commencer à jouer, </p>
+					<p><input type="button" value="inscrivez votre personnage" id="show_inscript" /></p>
+					<p>  ou</p>
+					<p> <input type="button" value="logguez-vous" id="show_log" /></p>
+
+			</div>
+		</div>
+
+		<div class="page stats">
+			<div class="gradient">
+					<h3>Répartition des joueurs par race :</h3>
+					<canvas id="chart_race" class="chart"></canvas>
+					<div id="legend_race"></div>
+			</div>
+			<div class="gradient">
+					<h3>Répartition des secteurs controlés par race :</h3>
+					<canvas id="chart_secteur" class="chart"></canvas>
+					<div id="legend_secteur"></div>
+			</div>
+		</div>	
+
+		<div class="page inventaire">Vous n’avez aucun objet.</div>
+		<div class="page resolution_combat">Pas de combat en cours.</div>
+		
+		<div class="page regle">
+			<h2>Intro</h2>
+	
+			<p>Vampires contre loups garous est un jeu de capture de territoire basé
+				sur votre localisation de votre mobile. tant que vous ne vous faites
+				pas mordre, vous êtes un humain et votre but et de capturer et
+				défendre vos territoires contre les loups et les vampires... VcLG
+				est un jeu virale où les loups garous et vampires doivent mordre le
+				plus d’humains possible pour s’agrandir et obtenir le plus de
+				territoire en y plaçant des soldats.</p>
+
+			<h2>Morsures :</h2>
+			<p>Les morsures se font par QRcode, votre victime doit flasher
+				votre QRcode que vous aurez imprimé et disséminé dans la nature.
+				la victime deviendra votre 'disciple' et vous gagnerez en pouvoir.</p>
+			<p>Si un vampire ou loup garou scan un qrcode de morsure ennemi,
+				il ne se transforme pas, mais perd en puissance.</p>
+			<h2>Les classes :</h2>
+			<p>Il y a en tout 7 classes possibles :</p>
+			<p>
+				Humain :<br /> si vous rejoigner ce site sans vous être fait
+				mordre, félicitation vous restez humain, et bon courage dans cette
+				lutte déséquilibré. un humain n’a aucun pouvoir et risque a tout
+				moment de se faire convertir par l’ennemi.<br /> Vous avez 1 soldat
+				chaque jour.
+			</p>
+			<p>
+				Loup garou hybride:<br /> malheureusement votre ADN était trop
+				proche de celui qui vous a mordu, votre transformation n’as pas
+				aboutie jusqu’au bout, vous avez les capacités limitées d’un humain,
+				mais jouez dans le camps des loup-garou, pour completer votre
+				transformation, vous devez vous faire remordre par un loup garou
+				moins proche de vous.<br />Toute personne que vous mordez sera un hybride pour les mêmes raisons.<br/> Vous avez 1 soldat chaque jour.
+			</p>
+			<p>
+				Vampire hybride:<br /> malheureusement votre ADN était trop proche
+				de celui qui vous a mordu, votre transformation n’as pas aboutie
+				jusqu’au bout, vous avez les capacités limitées d’un humain, mais
+				jouer dans le camps des vampires, pour completer votre
+				transformation, vous devez vous faire remordre par un vampire moins
+				proche de vous.<br />Toute personne que vous mordez sera un hybride pour les mêmes raisons.<br /> Vous avez 1 soldat chaque jour.
+			</p>
+			<p>
+				Vampire :<br /> Vous vous êtes fait mordre, lors d’une morsure
+				qrcode. Vous
+				pouvez a votre tour vous constituer d’une armée de disciple.<br />
+				Vous avez 3 soldats chaque jour.
+			</p>
+			<p>
+				Loup-garou :<br /> Vous vous êtes fait mordre, lors d’une morsure
+				qrcode. Vous pouvez a votre tour vous constituer d’une armée de disciple.<br />
+				Vous avez 3 soldats chaque jour.
+			</p>
+			<p>
+				Maitre vampire :<br /> vampire ayant cumuler du pouvoir en ayant un
+				certain nombre de disciple et/ou de capture de territoire, vous êtes
+				plus puissant qu’un vampire.<br />Les personnes que vous morderez deviendront des vampires.<br /> Vous avez 5 soldats par jour et
+				pouvez vous renommer 1 fois (utile si vous aviez un nom d’humain).
+			</p>
+			<p>
+				Lycan alpha:<br /> loup garou ayant cumuler du pouvoir en ayant un
+				certain nombre de disciple et/ou de capture de territoire, vous êtes
+				plus puissant qu’un loup garou.<br />Les personnes que vous morderez deviendront des loups-garou.<br /><br /> Vous avez 5 soldats par jour
+				et pouvez vous renommer 1 fois (utile si vous aviez un nom
+				d’humain).
+			</p>
+			<h2>Capture de territoire:</h2>
+			<p>Vous devez vous déplacer physiquement sur le lieu que vous
+				souhaitez capturer.</p>
+			<p>
+				Chaque jour vous recruter x soldats suivant votre classe.<br /> Si vous revendiquer (
+				placer un soldat sur) un territoire n’ayant aucun soldat ennemi
+				ou si vous gagnez une revendication d’un territoire contesté, le terrain passe dans votre camps. si le
+				territoire a des soldats ennemis, ils est alors contesté, et le combat
+				commence. si vous placer un soldat sur un territoire déja revendiqué
+				par votre camps, vous le renforcé. Vous ne pouvez pas renforcer un territoire au dela d’un certain seuil de soldats.
+			</p>
+			<p>Un territoire perd regulierement des soldats de manièere automatique pour simuler le conflits, si un secteur repasse à 0 soldat, il redevient neutre.</p>
+			<h2>Contestation de territoire:</h2>
+			<p>Le territoire ennemi a des soldats, pour le catpurer il vous faudra réduire ces
+				ennemi à néant : les soldats représente un jet de dés de 6, à chaque
+				déroulement du combat, l’assaillant prendra au maximum 3 dés  et 2 dés  pour la défense. une comparaison sera faite dés
+				à dés en commençant par le plus fort de chaque coté, si le score est
+				le même, la défense gagne.</p>
+			<p>Le combat se déroule jusqu’à épuisement des soldats de
+				l’attaquant ou du secteur défendu.</p>
+			<p>Si l’attaquant perd ses soldats, le territoire reste à
+				l’ennemi, et il devra attendre le lendemain pour les récuperer.</p>
+			<p>Si le secteur attaqué n’a plus de soldat, le territoire est
+				conquis.</p>
+			<p>Même si le territoire contesté a plus de soldat que vous vous,
+				il peut etre préférable de l’affaiblir petit à petit, plutot que de
+				trop vous étendre... a moins que vous aimiez la marche..</p>
+			
+				
+			<h2>Objet/inventaire:</h2>
+
+			<p>Vous pouvez rechercher des objets sur chaque territoire neutre une fois par jour par territoire neutre.</p>
+			<p>les objet vous confere des bonus, tel que l’antidote qui vous soigne d’une morsure et vous empeche de vous transformer, ou des recrues qui une fois utilisé s’additionne à vos soldats (vous pouvez dépassé votre seuil de soldat de classe, mais chaque nouveau jour, vous reviendrez a votre seuil)</p>
+			<p>Les objets possedent un qrcode, vous pouvez donner, distribuer ces qrcodes, n’importe qui qui scannera le qrcode obtiendra l’objet, tant qu’il n’est pas utilisé. (il peut etre utile de donner des antidotes a vos amis mordu, si vous êtes Humains... ;)</p>
+	
+			
+			<h2>Cas particulier des hybrides.</h2>
+			<p>
+				Les hybrides sont une réponse au multi-compte, pour evitez que vous
+				vous constituiez une super armée de vous même.<br /> Malheureusement
+				il est impossible d’affirmer si il s’agit d’un multicompte ou d’une
+				personne ayant le même mobile.
+			</p>
+			<p>Les multi-comptes sont interdit, nous mettrons tout en oeuvre
+				pour les démasquer, un vampire/ lg ayant plein d’hybride sera sujet
+				d’investigation. Tout multi-comptes considéré comme avéré fera
+				l’objet d’un ban définitif du jeu.</p>
+			<p>Un hybride ne peut pas attaquer de territoire ennemi, ni
+				renforcer un territoire allié, il ne peut que conquerir des
+				territoires neutres et attendre une morsure QRcode d’un allié ayant un
+				mobile différent du sien.</p>		
+			<p>Les hybrides ne sont pas considéré comme disciple et
+				n’augmente pas le pouvoir du mordeur.</p>
+			<p>Un hybride passant vampire/LG n’aura de lien qu’avec son
+				nouveau maître.</p>
+			<p>Si le second mordeur est trop proche egalement, l’hybride garde son status
+				d’hybride et ses limitations.</p>
+
+            <h2>Crédits:</h2>
+            <img src="img/common_licence.jpg" alt="common_licence" /> image (sous <a href="http://creativecommons.org/licenses/by/2.0/deed.fr">licence creative common</a>) tiré de http://www.flickr.com/photos/vtda/4251752168/
+            retouché pour créer logo, icone, splashscreen. l'auteur de l'image n'est affilié en aucune sorte au jeu.
+		</div>
+		
+
+		
+	</div>
+
+	<div id="debug"></div>
+</body>
+</html>
